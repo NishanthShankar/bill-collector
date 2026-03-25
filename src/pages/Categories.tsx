@@ -58,7 +58,7 @@ export function Categories() {
     <div className="p-10 max-w-4xl mx-auto space-y-6">
       <div className="flex items-end justify-between">
         <h2 className="text-2xl font-headline font-bold text-primary">
-          Categories
+          Organizations
         </h2>
         <button
           onClick={() => {
@@ -68,7 +68,7 @@ export function Categories() {
           className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-headline font-semibold text-sm hover:opacity-90 transition-opacity"
         >
           <span className="material-symbols-outlined text-sm">add</span>
-          New Category
+          New Organization
         </button>
       </div>
 
@@ -78,7 +78,7 @@ export function Categories() {
           className="bg-surface-container-lowest rounded-xl shadow-sm p-6 space-y-4"
         >
           <h3 className="font-headline font-bold text-primary">
-            {editingId ? "Edit Category" : "New Category"}
+            {editingId ? "Edit Organization" : "New Organization"}
           </h3>
 
           <div className="space-y-2">
@@ -188,7 +188,7 @@ export function Categories() {
                   </button>
                   <button
                     onClick={() => {
-                      if (confirm("Delete this category?")) {
+                      if (confirm("Delete this organization?")) {
                         removeCategory({ id: cat._id });
                       }
                     }}
@@ -208,7 +208,7 @@ export function Categories() {
         })}
         {categories?.length === 0 && (
           <p className="text-on-surface-variant col-span-full text-center py-12">
-            No categories yet. Create one to get started.
+            No organizations yet. Create one to get started.
           </p>
         )}
       </div>

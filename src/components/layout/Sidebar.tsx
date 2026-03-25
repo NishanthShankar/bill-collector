@@ -1,13 +1,17 @@
 import { NavLink } from "react-router-dom";
+import { useAuthActions } from "@convex-dev/auth/react";
 
 const navItems = [
   { to: "/", icon: "dashboard", label: "Dashboard" },
   { to: "/bills", icon: "receipt_long", label: "Bill List" },
   { to: "/add", icon: "add_circle", label: "Add Bill" },
-  { to: "/categories", icon: "category", label: "Categories" },
+  { to: "/organizations", icon: "corporate_fare", label: "Organizations" },
+  { to: "/gmail", icon: "mail", label: "Gmail Sync" },
 ];
 
 export function Sidebar() {
+  const { signOut } = useAuthActions();
+
   return (
     <aside className="h-screen w-64 fixed left-0 top-0 border-r border-outline-variant/15 bg-slate-50 flex flex-col p-4 gap-2 z-50">
       <div className="mb-8 px-2">
@@ -38,20 +42,13 @@ export function Sidebar() {
       </nav>
 
       <div className="mt-auto pt-4 flex flex-col gap-1 border-t border-outline-variant/15">
-        <a
-          href="#"
-          className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:text-blue-950 hover:translate-x-1 transition-all font-headline text-sm font-semibold tracking-wide"
-        >
-          <span className="material-symbols-outlined">help</span>
-          Help Center
-        </a>
-        <a
-          href="#"
-          className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:text-blue-950 hover:translate-x-1 transition-all font-headline text-sm font-semibold tracking-wide"
+        <button
+          onClick={() => void signOut()}
+          className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:text-blue-950 hover:translate-x-1 transition-all font-headline text-sm font-semibold tracking-wide w-full text-left"
         >
           <span className="material-symbols-outlined">logout</span>
           Sign Out
-        </a>
+        </button>
       </div>
     </aside>
   );

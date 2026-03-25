@@ -36,7 +36,7 @@ export function Dashboard() {
           </h2>
           <div className="flex items-center gap-2">
             <span className="px-2 py-0.5 rounded-full bg-white/10 text-white text-[10px] font-bold">
-              {stats.categoryBreakdown.length} categories tracked
+              {stats.categoryBreakdown.length} organizations tracked
             </span>
           </div>
         </div>
@@ -74,14 +74,14 @@ export function Dashboard() {
         </div>
       </section>
 
-      {/* Category Breakdown */}
+      {/* Organization Breakdown */}
       <section className="space-y-6">
         <div className="flex items-end justify-between">
           <h3 className="text-2xl font-headline font-bold text-primary">
             Portfolio Allocation
           </h3>
           <p className="text-on-surface-variant text-sm">
-            Live category metrics
+            Live organization metrics
           </p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -140,7 +140,7 @@ export function Dashboard() {
                   Merchant
                 </th>
                 <th className="px-8 py-4 font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
-                  Category
+                  Organization
                 </th>
                 <th className="px-8 py-4 font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
                   Due Date
@@ -185,7 +185,7 @@ export function Dashboard() {
                       {formatDate(bill.dueDate)}
                     </td>
                     <td className="px-8 py-5 font-bold text-sm text-primary">
-                      {formatCurrency(bill.amount)}
+                      {formatCurrency(bill.amount, bill.currency)}
                     </td>
                     <td className="px-8 py-5">
                       <span

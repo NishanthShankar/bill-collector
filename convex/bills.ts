@@ -6,10 +6,23 @@ export const list = query({
     const bills = await ctx.db.query("bills").collect();
     const categories = await ctx.db.query("categories").collect();
     const categoryMap = new Map(categories.map((c) => [c._id, c]));
-    return bills.map((bill) => ({
-      ...bill,
-      category: categoryMap.get(bill.categoryId) ?? null,
-    }));
+    return Promise.all(
+      bills.map(async (bill) => {
+        let imageUrl: string | null = null;
+        let contentType: string | null = null;
+        if (bill.imageId) {
+          imageUrl = await ctx.storage.getUrl(bill.imageId);
+          const meta = await ctx.db.system.get(bill.imageId);
+          contentType = (meta as any)?.contentType ?? null;
+        }
+        return {
+          ...bill,
+          category: categoryMap.get(bill.categoryId) ?? null,
+          imageUrl,
+          contentType,
+        };
+      })
+    );
   },
 });
 
@@ -76,12 +89,16 @@ export const create = mutation({
     categoryId: v.id("categories"),
     dueDate: v.string(),
     amount: v.number(),
+    currency: v.optional(v.string()),
     status: v.union(
       v.literal("paid"),
       v.literal("pending"),
       v.literal("overdue")
     ),
     notes: v.optional(v.string()),
+    imageId: v.optional(v.id("_storage")),
+    emailMessageId: v.optional(v.string()),
+    emailAccountId: v.optional(v.id("emailAccounts")),
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert("bills", args);
@@ -96,6 +113,7 @@ export const update = mutation({
     categoryId: v.optional(v.id("categories")),
     dueDate: v.optional(v.string()),
     amount: v.optional(v.number()),
+    currency: v.optional(v.string()),
     status: v.optional(
       v.union(
         v.literal("paid"),
@@ -104,6 +122,9 @@ export const update = mutation({
       )
     ),
     notes: v.optional(v.string()),
+    imageId: v.optional(v.id("_storage")),
+    emailMessageId: v.optional(v.string()),
+    emailAccountId: v.optional(v.id("emailAccounts")),
   },
   handler: async (ctx, { id, ...rest }) => {
     await ctx.db.patch(id, rest);

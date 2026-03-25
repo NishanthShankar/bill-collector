@@ -9,9 +9,16 @@
  */
 
 import type * as appConfig from "../appConfig.js";
+import type * as auth from "../auth.js";
+import type * as billerMappings from "../billerMappings.js";
 import type * as bills from "../bills.js";
 import type * as categories from "../categories.js";
+import type * as emailAccounts from "../emailAccounts.js";
+import type * as gmail from "../gmail.js";
+import type * as http from "../http.js";
 import type * as seed from "../seed.js";
+import type * as storage from "../storage.js";
+import type * as users from "../users.js";
 
 import type {
   ApiFromModules,
@@ -21,9 +28,16 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   appConfig: typeof appConfig;
+  auth: typeof auth;
+  billerMappings: typeof billerMappings;
   bills: typeof bills;
   categories: typeof categories;
+  emailAccounts: typeof emailAccounts;
+  gmail: typeof gmail;
+  http: typeof http;
   seed: typeof seed;
+  storage: typeof storage;
+  users: typeof users;
 }>;
 
 /**
